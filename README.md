@@ -1,7 +1,7 @@
 # manifest-store
 Django project. Online shop
 
-#Start project
+# Start project
 ```
 pip install -r requirements.txt
 python manage.py makemigrations
