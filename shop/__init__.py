@@ -1,0 +1,1 @@
+deafult_app_config = 'shop.apps.ShopConfig'

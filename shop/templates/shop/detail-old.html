@@ -1,0 +1,78 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block cssblock %}
+{% endblock %}
+
+{% block title %}
+    Shop
+{% endblock %}
+
+{% block content %}
+    {#    ==============================#}
+    <section class="items-details">
+        <div class="container-sm">
+            <div class="row g-5" style="display: flex;flex-direction: row-reverse;">
+                <div class="col-12 col-lg-4 product-details px-3 pl-lg-8 pr-lg-0 pt-3 pt-md-0">
+                    <div class="col-lg-12 col-12 p-0 d-none d-lg-block mb-2">
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="product-name hidden-sm-down">{{ product.name }}</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="prices pb-0">₽{{ product.price }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="attributes">
+                        <div class="row dyanamic-attr">
+                            <div class="col-12">
+                                <div class="attribute m-0 d-flex flex-column">
+                                    <div class="row d-inline-block order-0 order-lg-1 mt-2">
+                                        <div class="col-12 order-0">
+                                            <div class="select-attribute-grid attribute-grid-5">
+                                                {% for key, value in product.sizes.items %}
+                                                    <button class="mr-2 mr-lg-3 mb-2 mb-lg-3 variation-attribute size-attribute carouseldk-false nb-button btn-lg selectable"
+                                                            data-attr="size-value" aria-label="Select Size {{ value }}"
+                                                            aria-describedby="{{ value }}" data-attrid="size"
+                                                            title="{{ value }}" data-attrvalue="{{ value }}"
+                                                            data-date="" data-time="">
+                                                        <span data-attr-value="{{ value }}"
+                                                              class="p-auto size-value swatch-circle swatch-value selectable"
+                                                              style="background-image: none">{{ value }}</span>
+                                                        <span id="{{ value }}"
+                                                              class="sr-only selected-assistive-text"></span>
+                                                    </button>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-12 cart">
+                                                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                                    {{ cart_product_form }}
+                                                    {% csrf_token %}
+                                                    <input type="submit" value="Добавить в корзину">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">{{ product.name }}</h4>
+                    <div class="row g-3">
+                        {% for key, value in product.image_urs.items %}
+                            <div class="col-lg-4 col-sm-6 mb-2">
+                                <img src="{{ value }}" class="img-thumbnail w-200 h-200">
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
